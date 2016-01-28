@@ -16,12 +16,21 @@
 <script type="text/javascript" charset="utf-8">
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    alert(device.cordova);
-    alert(device.model);
-    alert(device.platform);
-    alert(device.uuid);
-    alert(device.version);
+    var htmlString = "cordova....: " + device.cordova + "<br>"+
+                     "model......: " + device.model + "<br>"+
+                     "platform...: " + device.platform + "<br>"+
+                     "uuid.......: " + device.uuid + "<br>"+
+                     "version....: " + device.version ;
+    $( this ).text( htmlString );
 }
+
+
+    $('#btn_exit').click(function() {
+      if (confirm("Chiudere l'applicazione?")) {
+        navigator.app.exitApp();
+      }
+    });
+    
 </script>
 </head>
 <body onload="onLoad()">
@@ -41,6 +50,7 @@ function onDeviceReady() {
           <div class="navbar-header" style="line-height: 56px;" id="testata" >
             CarPickUp
           </div>
+          <div id="result"></div>
 
         </div>
     </nav>
@@ -50,12 +60,12 @@ function onDeviceReady() {
       <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" >
         <div id="prova" style="width:100%;" data-toggle="offcanvas" data-target=".sidebar-nav">
           <ul data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
-            <li><a href="ric_elemento.html"> <i class="fa fa-eye"></i> CERCA ELEMENTO DI RETE</a></li>
+            <li><a href="./"> <i class="fa fa-eye"></i> HOMEPAGE </a></li>
           </ul>
           <ul id="footer_menu" data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
               <li><p>FUNZIONI</p></li>
-              <li><a href="impostazioni.html"> <i class="fa fa-info-circle"></i> Info</a></li>
-              <li><a id="btn_logout"> <i class="fa fa-sign-out"></i> Logout</a></li>
+              <li><a href="./"> <i class="fa fa-info-circle"></i> Info</a></li>
+              <li><a id="btn_exit"> <i class="fa fa-sign-out"></i> Close</a></li>
           </ul>
         </div> <!-- chiude prova -->  
       </div>
