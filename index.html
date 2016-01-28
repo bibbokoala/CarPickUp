@@ -9,15 +9,24 @@
    <!-- END CSS FOR TOGGLE LEFT MENU -->
    <link href="css/custom.css" rel="stylesheet">
 <script src="phonegap.js"></script>
-<script type="text/javascript" charset="utf-8" src="www/telephonenumber.js"></script>
+<!--<script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="js/deviceinformation.js"></script>
    <script src="js/jquery.min.js"></script>
 
 <script type="text/javascript" charset="utf-8">
+/***
 var telephoneNumber = cordova.require("cordova/plugin/telephonenumber");
 telephoneNumber.get(function(result) {
         alert("result = " + result);
     }, function() {
-        alert("error");
+        alert("error - telephonenumber");
+    });
+***/
+var deviceInfo = cordova.require("cordova/plugin/DeviceInformation");
+deviceInfo.get(function(result) {
+        alert("result = " + result);
+    }, function() {
+        alert("error - DeviceInformation");
     });
 </script>
 </head>
