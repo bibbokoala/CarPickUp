@@ -16,25 +16,31 @@
 <script type="text/javascript" charset="utf-8">
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    var htmlString = "cordova....: " + device.cordova + "<br>"+
-                     "model......: " + device.model + "<br>"+
-                     "platform...: " + device.platform + "<br>"+
-                     "uuid.......: " + device.uuid + "<br>"+
-                     "version....: " + device.version ;
-    $('#result').text( htmlString );
+    localStorage.setItem("device.cordova", device.cordova);
+    localStorage.setItem("device.model", device.model);
+    localStorage.setItem("device.platform", device.platform);
+    localStorage.setItem("device.uuid", device.uuid);
+    localStorage.setItem("device.version", device.version);
 }
+</script>
 
-
+<script>
   $(document).ready(function() {
+
+    var htmlString = "cordova....: " + localStorage.getItem("device.cordova") + "<br>"+
+                     "model......: " + localStorage.getItem("device.model") + "<br>"+
+                     "platform...: " + localStorage.getItem("device.platform") + "<br>"+
+                     "uuid.......: " + localStorage.getItem("device.uuid") + "<br>"+
+                     "version....: " + localStorage.getItem("device.version") ;
+    $('#result').text( htmlString );
 
     $('#btn_exit').click(function() {
       if (confirm("Chiudere l'applicazione?")) {
         navigator.app.exitApp();
       }
     });
-    
-  });
 
+  });
 </script>
 </head>
 <body onload="onLoad()">
