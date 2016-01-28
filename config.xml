@@ -78,7 +78,7 @@
     -->
     <gap:plugin name="net.roughshod.plugins.barcodescanner" spec="3.0.0" source="pgb" />
     <!-- <gap:plugin name="com.simonmacdonald.telephonenumber" spec="1.0.0" source="pgb" /> -->
-    <gap:plugin name="DeviceInformation" value="com.vliesaputra.cordova.plugins.DeviceInformation"/>
+    <plugin name="DeviceInformation" value="com.vliesaputra.cordova.plugins.DeviceInformation"/>
 
 
     <!-- Define app icon for each platform. -->
