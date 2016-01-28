@@ -21,7 +21,7 @@ function onDeviceReady() {
                      "platform...: " + device.platform + "<br>"+
                      "uuid.......: " + device.uuid + "<br>"+
                      "version....: " + device.version ;
-    $( this ).text( htmlString );
+    $('#result').text( htmlString );
 }
 
 
@@ -30,7 +30,7 @@ function onDeviceReady() {
         navigator.app.exitApp();
       }
     });
-    
+
 </script>
 </head>
 <body onload="onLoad()">
@@ -60,11 +60,11 @@ function onDeviceReady() {
       <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" >
         <div id="prova" style="width:100%;" data-toggle="offcanvas" data-target=".sidebar-nav">
           <ul data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
-            <li><a href="./"> <i class="fa fa-eye"></i> HOMEPAGE </a></li>
+            <li><a href="index.html"> <i class="fa fa-eye"></i> HOMEPAGE </a></li>
           </ul>
           <ul id="footer_menu" data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
               <li><p>FUNZIONI</p></li>
-              <li><a href="./"> <i class="fa fa-info-circle"></i> Info</a></li>
+              <li><a href="index.html"> <i class="fa fa-info-circle"></i> Info</a></li>
               <li><a id="btn_exit"> <i class="fa fa-sign-out"></i> Close</a></li>
           </ul>
         </div> <!-- chiude prova -->  
