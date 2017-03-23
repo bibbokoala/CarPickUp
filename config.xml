@@ -120,6 +120,11 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
 <!-- parametri per scegliere su quale piattaforma compilare:
 <platform name="ios" />
 <platform name="android" />
