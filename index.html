@@ -22,7 +22,21 @@ function onDeviceReady() {
                    "version.....: " + device.version + "<br>"+
                    "manufacturer: " + device.manufacturer + "<br>"+
                    "isVirtual...: " + device.isVirtual + "<br>"+
-                   "serial......: " + device.serial ;
+                   "serial......: " + device.serial+ "<br>";
+  ble.startScan([], function(device) {
+      console.log(JSON.stringify(device));
+      htmlString += "btle........: " + JSON.stringify(device)+ "<br>";
+  }, failure);
+  setTimeout(ble.stopScan, 5000,
+      function() { 
+        console.log("Scan complete"); 
+        htmlString += "Scan complete<br>";
+      },
+      function() { 
+        console.log("stopScan failed"); 
+        htmlString += "stopScan failed<br>";
+      }
+  );
   document.getElementById("result").innerHTML = htmlString;
 }
 </script>
