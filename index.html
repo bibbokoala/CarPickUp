@@ -9,19 +9,20 @@
    <!-- END CSS FOR TOGGLE LEFT MENU -->
    <link href="css/custom.css" rel="stylesheet">
 <script src="phonegap.js"></script>
-<!--<script type="text/javascript" charset="utf-8" src="js/telephonenumber.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/deviceinformation.js"></script>-->
    <script src="js/jquery.min.js"></script>
 
 <script type="text/javascript" charset="utf-8">
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-  var htmlString = "cordova....: " + device.cordova + "<br>"+
-                   "model......: " + device.model + "<br>"+
-                   "platform...: " + device.platform + "<br>"+
-                   "uuid.......: " + device.uuid + "<br>"+
-                   "version....: " + device.version ;
+  var htmlString = "cordova.....: " + device.cordova + "<br>"+
+                   "model.......: " + device.model + "<br>"+
+                   "platform....: " + device.platform + "<br>"+
+                   "uuid........: " + device.uuid + "<br>"+
+                   "version.....: " + device.version + "<br>"+
+                   "manufacturer: " + device.manufacturer + "<br>"+
+                   "isVirtual...: " + device.isVirtual + "<br>"+
+                   "serial......: " + device.serial ;
   document.getElementById("result").innerHTML = htmlString;
 }
 </script>
