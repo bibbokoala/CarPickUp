@@ -45,16 +45,14 @@ function onDeviceReady() {
       alert("The following error occurred: "+error);
   }); 
 
-/**** IL PLUGIN BLE NON FUNZIONA 
-  ble.startScan([], function(device) {
-      alert("BLE: " + JSON.stringify(device));
-  }, failure);
-
-  setTimeout(ble.stopScan, 5000,
-      function() { alert("BLE - Scan complete"); },
-      function() { alert("BLE - stopScan failed"); }
+  window.MacAddress.getBluetoothMacAddress(
+    function(macAddress) {
+      alert(macAddress);
+    },
+    function(fail) {
+      alert(fail);
+    }
   );
-******/
 
 }
 </script>
