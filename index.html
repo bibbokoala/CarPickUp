@@ -25,7 +25,13 @@ function onDeviceReady() {
                    "serial......: " + device.serial+ "<br>";
   document.getElementById("result").innerHTML = htmlString;
   cordova.plugins.diagnostic.isBluetoothAvailable(function(available){
-      alert("Bluetooth is " + (available ? "available" : "not available"));
+    if (available){
+      alert("Bluetooth is available");
+    }
+    else{
+      alert("not available");
+      cordova.plugins.diagnostic.switchToBluetoothSettings();
+    }
   }, function(error){
       alert("The following error occurred: "+error);
   }); 
