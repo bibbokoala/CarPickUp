@@ -45,15 +45,6 @@ function onDeviceReady() {
       alert("The following error occurred: "+error);
   }); 
 
-  window.MacAddress.getBluetoothMacAddress(
-    function(macAddress) {
-      alert(macAddress);
-    },
-    function(fail) {
-      alert(fail);
-    }
-  );
-
 }
 </script>
 

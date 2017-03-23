@@ -71,7 +71,6 @@
 
     <!-- Third party plugins -->
     <plugin name="cordova.plugins.diagnostic" source="npm" />
-    <plugin name="org.cordova.bluetoothmacaddress" spec="0.1.0" source="pgb" />
 
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
     <!--
