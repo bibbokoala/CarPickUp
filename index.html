@@ -1,31 +1,106 @@
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <!-- CSS FOR TOGGLE LEFT MENU -->
+     <link href='http://fonts.googleapis.com/css?family=Exo+2:400,600,300,900' rel='stylesheet' type='text/css'>
+     <link href="css/navbar-static-top.css" rel="stylesheet">
+     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+   <!-- END CSS FOR TOGGLE LEFT MENU -->
+   <link href="css/custom.css" rel="stylesheet">
+<script src="phonegap.js"></script>
+   <script src="js/jquery.min.js"></script>
 
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>SensorTag</title>
-    </head>
-    <body>
-        <div class="app">
-            <p style="text-align:center; padding-top: 20px;">Choose a peripheral with a battery service</p>
-            <div id="mainPage">
-                <ul id="deviceList">
-                </ul>
-                <button id="refreshButton">Refresh</button>
-            </div>
-            <div id="detailPage">
-                <div id="batteryState"></div>
-                <button id="batteryStateButton">Read Battery State</button>
-                <button id="disconnectButton">Disconnect</button>
-            </div>
+<script type="text/javascript" charset="utf-8">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+  var htmlString = "cordova.....: " + device.cordova + "<br>"+
+                   "model.......: " + device.model + "<br>"+
+                   "platform....: " + device.platform + "<br>"+
+                   "uuid........: " + device.uuid + "<br>"+
+                   "version.....: " + device.version + "<br>"+
+                   "manufacturer: " + device.manufacturer + "<br>"+
+                   "isVirtual...: " + device.isVirtual + "<br>"+
+                   "serial......: " + device.serial+ "<br>";
+  document.getElementById("result").innerHTML = htmlString;
+  cordova.plugins.diagnostic.isBluetoothAvailable(function(available){
+      alert("Bluetooth is " + (available ? "available" : "not available"));
+  }, function(error){
+      alert("The following error occurred: "+error);
+  });
+
+}
+</script>
+
+<script>
+  $(document).ready(function() {
+
+    $('#btn_exit').click(function() {
+      if (confirm("Chiudere l'applicazione?")) {
+        navigator.app.exitApp();
+      }
+    });
+
+  });
+</script>
+</head>
+<body onload="onLoad()">
+      <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#DE0019;">
+      <div class="container">
+        <div class="navbar-header">
+          <div id="bottone_menu" >
+
+      <!-- BUTTON FOR TOGGLE LEFT MENU -->
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+      </button>
+          </div>
+          <div class="navbar-header" style="line-height: 56px;" id="testata" >
+            CarPickUp
+          </div>
+
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
-</html>
+    </nav>
+    <div class="container-fluid" id="fluido" >
+      <div class="row" >
+      <!-- sidebar LEFT MENU -->      <!-- sidebar -->
+      <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" >
+        <div id="prova" style="width:100%;" data-toggle="offcanvas" data-target=".sidebar-nav">
+          <ul data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
+            <li><a href="index.html"> <i class="fa fa-eye"></i> HOMEPAGE </a></li>
+          </ul>
+          <ul id="footer_menu" data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
+              <li><p>FUNZIONI</p></li>
+              <li><a href="index.html"> <i class="fa fa-info-circle"></i> Info</a></li>
+              <li><a id="btn_exit"> <i class="fa fa-sign-out"></i> Close</a></li>
+          </ul>
+        </div> <!-- chiude prova -->  
+      </div>
+
+
+      <!-- content -->
+      <div class="col-xs-12  col-sm-8 col-md-9 content">
+        <h1>CarPickUp</h1>
+        <div id="result" style="font-family: 'Courier New', Courier, monospace;" ></div>
+      </div>
+
+
+      </div> <!-- close div row --> 
+    </div> <!-- close div container-fluid -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- TOGGLE MENU -->
+    <script>
+      $(document).ready(function() {
+      $('[data-toggle=offcanvas]').click(function() {
+        $('.sidebar-offcanvas').toggleClass('active', 1000);
+      });
+    });
+    </script>
+
+  </body>
+  </html>
