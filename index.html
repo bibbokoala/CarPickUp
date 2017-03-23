@@ -24,6 +24,15 @@ function onDeviceReady() {
                    "isVirtual...: " + device.isVirtual + "<br>"+
                    "serial......: " + device.serial+ "<br>";
   document.getElementById("result").innerHTML = htmlString;
+  cordova.plugins.diagnostic.setBluetoothState(
+    function(){
+      alert("Bluetooth was enabled");
+    }, function(error){
+      alert("The following error occurred: "+error);
+      cordova.plugins.diagnostic.switchToBluetoothSettings();
+    },
+    true
+  );
   cordova.plugins.diagnostic.isBluetoothAvailable(function(available){
     if (available){
       alert("Bluetooth is available");
