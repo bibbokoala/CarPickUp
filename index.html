@@ -133,7 +133,7 @@ fileTransfer.download(download_link, fp,
 
     $('#btn_download').click(function() {
       if (confirm("Vuoi scaricare il QRCODE?")) {
-        DownloadFile("QRCODE.png", "QRCODES", "QRCODE_on.png");
+        DownloadFile("http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png", "QRCODES", "QRCODE_on.png");
       }
     });
 
@@ -180,7 +180,7 @@ fileTransfer.download(download_link, fp,
       <!-- content -->
       <div class="col-xs-12  col-sm-8 col-md-9 content">
         <h1>CarPickUp</h1>
-        <img id='qrcode_on' src='QRCODE.png' />
+        <img id='qrcode_on' src='http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png' />
         <div id="result" style="font-family: 'Courier New', Courier, monospace;" ></div>
         <br>
         <button id='btn_download' class='btn btn-primary' >DOWNLOAD QRCODE</button>
