@@ -113,19 +113,21 @@ function onDirectoryFail(error) {
 
 //Third step for download a file into created folder
 function filetransfer(download_link, fp) {
-var fileTransfer = new FileTransfer();
-// File download function with URL and local path
-fileTransfer.download(download_link, fp,
-                    function (entry) {
-                        alert("download complete: " + entry.fullPath);
-                    },
-                 function (error) {
-                     //Download abort errors or download failed errors
-                     alert("download error source " + error.source);
-                     alert("download error target " + error.target);
-                     alert("upload error code" + error.code);
-                 }
-            );
+  alert("download_link: " + download_link);
+  alert("fp: " + fp);
+  var fileTransfer = new FileTransfer();
+  // File download function with URL and local path
+  fileTransfer.download(download_link, fp,
+    function (entry) {
+        alert("download complete: " + entry.fullPath);
+    },
+     function (error) {
+         //Download abort errors or download failed errors
+         alert("download error source " + error.source);
+         alert("download error target " + error.target);
+         alert("upload error code" + error.code);
+     }
+  );    
 }
 
   $(document).ready(function() {
