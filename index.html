@@ -92,7 +92,7 @@ function fileSystemSuccess(fileSystem) {
 
 function onDirectorySuccess(parent) {
     // Directory created successfuly
-    alert("Directory created successfuly: " + parent);
+    alert("Directory created successfuly: " + JSON.stringify(parent) );
 }
 
 function onDirectoryFail(error) {
@@ -133,7 +133,7 @@ fileTransfer.download(download_link, fp,
 
     $('#btn_download').click(function() {
       if (confirm("Vuoi scaricare il QRCODE?")) {
-        DownloadFile("http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png", "QRCODES", "QRCODE_on.png");
+        DownloadFile("http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png", "QRCODES", "QRCODE_on");
       }
     });
 
