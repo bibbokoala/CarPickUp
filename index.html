@@ -49,6 +49,11 @@ function onDeviceReady() {
 </script>
 
 <script>
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log(FileTransfer);
+}
+
   $(document).ready(function() {
 
     $('#btn_exit').click(function() {
