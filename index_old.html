@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="css/bootstrap.min.css" rel="stylesheet">
+   <!-- CSS FOR TOGGLE LEFT MENU -->
+     <link href='http://fonts.googleapis.com/css?family=Exo+2:400,600,300,900' rel='stylesheet' type='text/css'>
+     <link href="css/navbar-static-top.css" rel="stylesheet">
+     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+   <!-- END CSS FOR TOGGLE LEFT MENU -->
+   <link href="css/custom.css" rel="stylesheet">
+<script src="phonegap.js"></script>
+   <script src="js/jquery.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+  var htmlString = "cordova.....: " + device.cordova + "<br>"+
+                   "model.......: " + device.model + "<br>"+
+                   "platform....: " + device.platform + "<br>"+
+                   "uuid........: " + device.uuid + "<br>"+
+                   "version.....: " + device.version + "<br>"+
+                   "manufacturer: " + device.manufacturer + "<br>"+
+                   "isVirtual...: " + device.isVirtual + "<br>"+
+                   "serial......: " + device.serial+ "<br>";
+  document.getElementById("result").innerHTML = htmlString;
+  cordova.plugins.diagnostic.setBluetoothState(
+    function(){
+      alert("Bluetooth was enabled");
+    }, function(error){
+      alert("The following error occurred: "+error);
+      cordova.plugins.diagnostic.switchToBluetoothSettings();
+    },
+    true
+  );
+
+  /* PLUGIN BLUETOTH che funziona solo sui smartphone recenti!!!
+  cordova.plugins.diagnostic.isBluetoothAvailable(function(available){
+    if (available){
+      alert("Bluetooth is available");
+    }
+    else{
+      alert("not available");
+      cordova.plugins.diagnostic.switchToBluetoothSettings();
+    }
+  }, function(error){
+      alert("The following error occurred: "+error);
+  }); 
+*/
+
+}
+</script>
+
+<script>
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    alert("FileTransfer: " + FileTransfer);
+}
+
+//First step check parameters mismatch and checking network connection if available call    download function
+function DownloadFile(URL, Folder_Name, File_Name) {
+//Parameters mismatch check
+if (URL == null && Folder_Name == null && File_Name == null) {
+    return;
+}
+else {
+    //checking Internet connection availablity
+    var networkState = navigator.connection.type;
+    if (networkState == Connection.NONE) {
+        return;
+    } else {
+        download(URL, Folder_Name, File_Name); //If available download function call
+    }
+  }
+}
+
+//Second step to get Write permission and Folder Creation
+function download(URL, Folder_Name, File_Name) {
+//step to request a file system 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+function fileSystemSuccess(fileSystem) {
+    var download_link = encodeURI(URL);
+    ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+
+    var directoryEntry = fileSystem.root; // to get root path of directory
+    directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+    var rootdir = fileSystem.root;
+    // Returns Fulpath of local directory
+    //var fp = rootdir.fullPath; 
+    //var fp = rootdir.toURL();
+    var fp = "file:///data/com.phonegap.carpickup/files";
+
+    //fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+    // download function call
+    var nome_completo_file = fp +  "/" + File_Name + "." + ext;
+    filetransfer(download_link, fp);
+}
+
+function onDirectorySuccess(parent) {
+    // Directory created successfuly
+    alert("Directory created successfuly: " + JSON.stringify(parent) );
+    alert("nativeURL: " + parent.nativeURL);
+}
+
+function onDirectoryFail(error) {
+    //Error while creating directory
+    alert("Unable to create new directory: " + error.code);
+}
+
+  function fileSystemFail(evt) {
+    //Unable to access file system
+    alert(evt.target.error.code);
+ }
+}
+
+//Third step for download a file into created folder
+function filetransfer(download_link, fp) {
+  alert("download_link: " + download_link);
+  alert("fp: " + fp);
+  var fileTransfer = new FileTransfer();
+  // File download function with URL and local path
+  fileTransfer.download(download_link, fp,
+    function (entry) {
+        alert("download complete: " + entry.fullPath);
+    },
+     function (error) {
+         //Download abort errors or download failed errors
+         alert("download error source " + error.source);
+         alert("download error target " + error.target);
+         alert("upload error code" + error.code);
+     }
+  );    
+}
+
+  $(document).ready(function() {
+
+    $('#btn_exit').click(function() {
+      if (confirm("Chiudere l'applicazione?")) {
+        navigator.app.exitApp();
+      }
+    });
+
+    $('#btn_download').click(function() {
+      if (confirm("Vuoi scaricare il QRCODE?")) {
+        DownloadFile("http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png", "QRCODES", "QRCODE_on");
+      }
+    });
+
+  });
+</script>
+</head>
+<body onload="onLoad()">
+      <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#DE0019;">
+      <div class="container">
+        <div class="navbar-header">
+          <div id="bottone_menu" >
+
+      <!-- BUTTON FOR TOGGLE LEFT MENU -->
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+      </button>
+          </div>
+          <div class="navbar-header" style="line-height: 56px;" id="testata" >
+            CarPickUp
+          </div>
+
+        </div>
+    </nav>
+    <div class="container-fluid" id="fluido" >
+      <div class="row" >
+      <!-- sidebar LEFT MENU -->      <!-- sidebar -->
+      <div class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas" >
+        <div id="prova" style="width:100%;" data-toggle="offcanvas" data-target=".sidebar-nav">
+          <ul data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
+            <li><a href="index.html"> <i class="fa fa-eye"></i> HOMEPAGE </a></li>
+          </ul>
+          <ul id="footer_menu" data-spy="affix" data-offset-top="120" id="affix" class="nav nav-stacked" >
+              <li><p>FUNZIONI</p></li>
+              <li><a href="index.html"> <i class="fa fa-info-circle"></i> Info</a></li>
+              <li><a id="btn_exit"> <i class="fa fa-sign-out"></i> Close</a></li>
+          </ul>
+        </div> <!-- chiude prova -->  
+      </div>
+
+
+      <!-- content -->
+      <div class="col-xs-12  col-sm-8 col-md-9 content">
+        <h1>CarPickUp</h1>
+        <img id='qrcode_on' src='http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png' />
+        <div id="result" style="font-family: 'Courier New', Courier, monospace;" ></div>
+        <br>
+        <button id='btn_download' class='btn btn-primary' >DOWNLOAD QRCODE</button>
+      </div>
+
+
+      </div> <!-- close div row --> 
+    </div> <!-- close div container-fluid -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- TOGGLE MENU -->
+    <script>
+      $(document).ready(function() {
+      $('[data-toggle=offcanvas]').click(function() {
+        $('.sidebar-offcanvas').toggleClass('active', 1000);
+      });
+    });
+    </script>
+
+  </body>
+  </html>
