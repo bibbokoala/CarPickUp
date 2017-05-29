@@ -11,6 +11,84 @@
 <script src="phonegap.js"></script>
    <script src="js/jquery.min.js"></script>
 
+
+<script>
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+  var that = this,
+  App = new downloadApp(),
+  fileName = "sample.png",
+  uri = encodeURI("http://service.cloudmup.com/GOALocale/QRCODE/170526194547202_on.png"),
+    folderName = "QRCODE";
+    
+  navigator.splashscreen.hide();
+  App.run(uri, fileName, folderName);
+}
+
+var downloadApp = function() {
+}
+
+downloadApp.prototype = {
+  run: function(uri, fileName, folderName) {
+    var that = this,
+    filePath = "";
+        
+    document.getElementById("download").addEventListener("click", function() {
+      that.getFilesystem(
+        function(fileSystem) {
+          alert("gotFS");
+                    
+          if (device.platform === "Android") {
+            that.getFolder(fileSystem, folderName, function(folder) {
+              filePath = folder.fullPath + "\/" + fileName;
+              that.transferFile(uri, filePath)
+            }, function() {
+              alert("failed to get folder");
+            });
+          }
+          else {
+            filePath = fileSystem.root.fullPath + "\/" + fileName;
+            that.transferFile(uri, filePath)
+          }
+        },
+        function() {
+          alert("failed to get filesystem");
+        }
+        );
+    });
+  },
+    
+  getFilesystem:function (success, fail) {
+    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, success, fail);
+  },
+
+  getFolder: function (fileSystem, folderName, success, fail) {
+    fileSystem.root.getDirectory(folderName, {create: true, exclusive: false}, success, fail)
+  },
+
+  transferFile: function (uri, filePath) {
+    var transfer = new FileTransfer();
+    transfer.download(
+      uri,
+      filePath,
+      function(entry) {
+        var image = document.getElementById("downloadedImage");
+        image.src = entry.fullPath;
+        document.getElementById("result").innerHTML = "File saved to: " + entry.fullPath;
+      },
+      function(error) {
+        alert("download error source " + error.source);
+        alert("download error target " + error.target);
+        alert("upload error code" + error.code);
+      }
+      );
+  }
+}
+</script>
+
+
 <script type="text/javascript" charset="utf-8">
 
 document.addEventListener("deviceready", onDeviceReady, false);
@@ -132,6 +210,15 @@ function DownloadFile(url, dir, filename){
         <button id='btn_download' class='btn btn-primary' >DOWNLOAD QRCODE</button>
         <br>
         <br>
+
+<div class="content">
+<button class="button big" id="download">Download</button>
+      <div id="result"></div>
+      <img id="downloadedImage"/>
+</div>
+  <br>
+  <br>
+
       </div>
 
 
